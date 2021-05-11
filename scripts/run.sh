@@ -19,6 +19,15 @@ show_help(){
   exit 0;
 }
 
+
+# gsutil version -l
+# gcloud config list 
+# gsutil ls
+# echo "downloading gcs file path into local filesystem: "
+# gsutil cp $3 /pentaho/project/transfer_file.csv
+# echo "finished downloading $3"
+# head -n 10 /pentaho/project/transfer_file.csv
+
 if [ "x$1" = "xtrans" ]; then
   EXEC="pan"
 elif [ "x$1" = "xjob" ]; then
@@ -31,7 +40,8 @@ if [ -z "$2" ]; then
     show_help
 fi
 
-EXECSTR=./$EXEC".sh -file="$2" "${@:3}
+echo ".sh -file=$2 ${@:4}"
+EXECSTR=./$EXEC".sh -file="$2" "${@:4}
 echo "Executing "$EXECSTR
 
 show_info

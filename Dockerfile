@@ -1,5 +1,10 @@
 FROM    ubuntu:18.04
 
+RUN apt-get update && \
+    apt-get install -y software-properties-common && \
+    rm -rf /var/lib/apt/lists/*
+RUN add-apt-repository universe
+
 # Install primary dependencies
 RUN sed 's/main$/main universe/' -i /etc/apt/sources.list && \
 	apt-get clean && apt-get update && \
@@ -50,6 +55,21 @@ RUN wget -q -O kettle.zip ${PENTAHO_DOWNLOAD_URL} && \
   unzip -qq kettle.zip && \
   rm -rf kettle.zip
 
+# downloads google sdk
+RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && \ 
+sudo apt-get install -y apt-transport-https ca-certificates gnupg && \
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add - && \
+sudo apt-get update && sudo apt-get install -y google-cloud-sdk
+
+RUN sudo apt-get update && \
+    sudo apt-get install -y \
+        python3-pip \
+        python3-setuptools \
+        groff \
+        less \
+    && pip3 install --upgrade pip \
+    && sudo apt-get clean
+
 WORKDIR /pentaho/data-integration
 
 # Adds connections config files
@@ -61,15 +81,5 @@ RUN sed -i \
 
 ENV PDI_HOME /pentaho/data-integration
 
-RUN sudo apt-get update && \
-    sudo apt-get install -y \
-        python3-pip \
-        python3-setuptools \
-        groff \
-        less \
-    && pip3 install --upgrade pip \
-    && sudo apt-get clean
-
-RUN sudo python3 -m pip --no-cache-dir install --upgrade awscli 
 
 ENTRYPOINT ["/pentaho/data-integration/run.sh"]
