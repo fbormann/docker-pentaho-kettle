@@ -81,5 +81,6 @@ RUN sed -i \
 
 ENV PDI_HOME /pentaho/data-integration
 
+COPY test/etl/* /pentaho/project/
 
 ENTRYPOINT ["/pentaho/data-integration/run.sh"]

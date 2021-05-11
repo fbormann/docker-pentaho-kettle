@@ -9,7 +9,7 @@ services:
           - pgsql-pentaho-kettle
         container_name: pentaho-kettle
         # command: tail -F anything
-        # command: trans /pentaho/project/read_data.ktr gs://education-storage-mec-fabwork/micro_dados_educacao/2019/SUP_IES_2019.CSV
+        # command: trans /pentaho/project/read_data.ktr gs://education-storage-mec-fabwork/micro_dados_educacao/2009/DM_IES.CSV.gz
         env_file: 
           - test.env
         links:
