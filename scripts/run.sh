@@ -19,14 +19,13 @@ show_help(){
   exit 0;
 }
 
-
-# gsutil version -l
-# gcloud config list 
-# gsutil ls
-# echo "downloading gcs file path into local filesystem: "
-# gsutil cp $3 /pentaho/project/transfer_file.csv
-# echo "finished downloading $3"
-# head -n 10 /pentaho/project/transfer_file.csv
+gsutil version -l
+gcloud config list 
+gsutil ls
+echo "downloading gcs file path into local filesystem: "
+gsutil cp $3 /tmp/data/transfer_file.csv
+echo "finished downloading $3"
+head -n 10 /tmp/data/transfer_file.csv
 
 if [ "x$1" = "xtrans" ]; then
   EXEC="pan"
