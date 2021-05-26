@@ -48,7 +48,8 @@ RUN mkdir /pentaho && \
 
 WORKDIR /pentaho
 USER pentaho
-ARG PENTAHO_DOWNLOAD_URL=https://netcologne.dl.sourceforge.net/project/pentaho/Pentaho%208.3/client-tools/pdi-ce-8.3.0.0-371.zip
+# ARG PENTAHO_DOWNLOAD_URL=https://netcologne.dl.sourceforge.net/project/pentaho/Pentaho%208.3/client-tools/pdi-ce-8.3.0.0-371.zip
+ARG PENTAHO_DOWNLOAD_URL=https://sourceforge.net/projects/pentaho/files/Pentaho%208.2/client-tools/pdi-ce-8.2.0.0-342.zip/download
 
 # Downloads pentaho
 RUN wget -q -O kettle.zip ${PENTAHO_DOWNLOAD_URL} && \
@@ -71,6 +72,9 @@ RUN sudo apt-get update && \
     && sudo apt-get clean
 
 WORKDIR /pentaho/data-integration
+
+COPY mec-test-310713-0b0bc8a3e223.json /pentaho/data-integration/credentials.json
+ENV GOOGLE_APPLICATION_CREDENTIALS /pentaho/data-integration/credentials.json
 
 # Adds connections config files
 ADD --chown=pentaho:pentaho scripts/* ./
