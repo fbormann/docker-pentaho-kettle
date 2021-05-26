@@ -73,8 +73,8 @@ RUN sudo apt-get update && \
 
 WORKDIR /pentaho/data-integration
 
-COPY mec-test-310713-0b0bc8a3e223.json /pentaho/data-integration/credentials.json
-ENV GOOGLE_APPLICATION_CREDENTIALS /pentaho/data-integration/credentials.json
+# COPY mec-test-310713-0b0bc8a3e223.json /pentaho/data-integration/credentials.json
+# ENV GOOGLE_APPLICATION_CREDENTIALS /pentaho/data-integration/credentials.json
 
 # Adds connections config files
 ADD --chown=pentaho:pentaho scripts/* ./

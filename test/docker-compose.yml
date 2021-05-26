@@ -1,7 +1,7 @@
 version: '3'
 services:
     pentaho-kettle:
-        image: oncase/pentaho-kettle:latest
+        image: gcr.io/mec-test-310713/pentaho-gcs:latest
         environment: 
             - PROJECT_ID=mec-test-310713
         build: ..
@@ -9,7 +9,7 @@ services:
           - pgsql-pentaho-kettle
         container_name: pentaho-kettle
         # command: tail -F anything
-        # command: trans /pentaho/project/read_data.ktr gs://education-storage-mec-fabwork/micro_dados_educacao/2009/DM_IES.CSV.gz
+        command: trans /pentaho/project/teste.ktr gs://education-storage-mec-fabwork/micro_dados_educacao/2009/DM_IES.CSV.gz -param:caminho_in=gs://education-storage-mec-fabwork/micro_dados_educacao/2010/DM_IES.CSV.gz -param:caminho_out=gs://education-storage-mec-fabwork/micro_dados_educacao/2010/DM_IES_100l.CSV
         env_file: 
           - test.env
         links:
