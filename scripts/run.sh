@@ -43,4 +43,7 @@ echo "Runtime files configured..."
 echo "Running $1"
 . $EXECSTR
 
+# get status code from pentaho execution
+ERROR=$?
+echo "status code: $ERROR"
 exit $ERROR
